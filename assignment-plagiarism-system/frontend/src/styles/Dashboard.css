@@ -1,0 +1,121 @@
+.dashboard {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+.dashboard h1 {
+  color: #2c3e50;
+  margin-bottom: 2rem;
+  font-size: 2rem;
+}
+
+.dashboard h2 {
+  color: #34495e;
+  margin-top: 2rem;
+  margin-bottom: 1.5rem;
+  border-bottom: 2px solid #3498db;
+  padding-bottom: 0.5rem;
+}
+
+.dashboard section {
+  margin-bottom: 3rem;
+}
+
+.assignments-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.assignments-list {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.assignment-item {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.assignment-item h3 {
+  color: #2c3e50;
+  margin-bottom: 0.5rem;
+}
+
+.assignment-item button {
+  margin-top: 1rem;
+  background-color: #3498db;
+  color: white;
+}
+
+.assignment-item button:hover {
+  background-color: #2980b9;
+}
+
+.submissions-table {
+  width: 100%;
+  margin-top: 1.5rem;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  overflow: hidden;
+}
+
+.create-assignment {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  margin-bottom: 2rem;
+}
+
+.create-assignment form {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.create-assignment button {
+  grid-column: 1 / -1;
+  background-color: #27ae60;
+  color: white;
+  padding: 1rem;
+}
+
+.create-assignment button:hover {
+  background-color: #229954;
+}
+
+.student-submission {
+  margin-top: 1rem;
+  padding: 1rem;
+  background-color: #ecf0f1;
+  border-radius: 4px;
+}
+
+.student-submission .submitted {
+  color: #27ae60;
+}
+
+.student-submission .plagiarism {
+  color: #e74c3c;
+  font-weight: 500;
+}
+
+.student-submission .score {
+  color: #2980b9;
+  font-weight: 500;
+}
+
+.student-submission button {
+  background-color: #3498db;
+  color: white;
+  padding: 0.5rem 1rem;
+}
+
+.student-submission button:hover {
+  background-color: #2980b9;
+}

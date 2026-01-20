@@ -1,0 +1,65 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: plagiarism_mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: plagiarism_db
+      MYSQL_USER: plagiarism
+      MYSQL_PASSWORD: plagiarism123
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - plagiarism_network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: plagiarism_backend
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/plagiarism_db?useSSL=false&serverTimezone=UTC
+      SPRING_DATASOURCE_USERNAME: plagiarism
+      SPRING_DATASOURCE_PASSWORD: plagiarism123
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      JWT_SECRET: mySecretKeyForJWTTokenGenerationAndValidation123456789012345678901234567890
+      JWT_EXPIRATION: 86400000
+    ports:
+      - "8080:8080"
+    depends_on:
+      mysql:
+        condition: service_healthy
+    networks:
+      - plagiarism_network
+    volumes:
+      - ./submissions:/app/submissions
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: plagiarism_frontend
+    environment:
+      REACT_APP_API_URL: http://localhost:8080/api
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+    networks:
+      - plagiarism_network
+
+volumes:
+  mysql_data:
+
+networks:
+  plagiarism_network:
+    driver: bridge

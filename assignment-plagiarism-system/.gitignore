@@ -1,0 +1,78 @@
+# Java/Spring Boot
+*.class
+*.jar
+*.war
+*.ear
+*.zip
+target/
+out/
+.classpath
+.project
+.settings/
+*.jks
+*.keystore
+
+# Maven
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.orig
+release.properties
+.maven_classpath
+*.pom
+
+# IDE
+.idea/
+*.iml
+*.iws
+*.ipr
+.vscode/
+*.code-workspace
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+.project
+.classpath
+.c9/
+
+# Node/React
+node_modules/
+package-lock.json
+yarn.lock
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+dist/
+build/
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# Logs
+logs/
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Docker
+.dockerignore
+
+# Testing
+coverage/
+.nyc_output/
+
+# Build artifacts
+*.o
+*.a
+*.so
+
+# Application-specific
+application-local.properties
+application-dev.properties
+application-prod.properties
