@@ -32,20 +32,30 @@ public class SubmissionService {
     private final PlagiarismDetectionEngine plagiarismEngine;
     private final PlagiarismService plagiarismService;
 
-    private static final String UPLOAD_DIR = "submissions/";
+    private static final String UPLOAD_DIR = System.getProperty("user.dir") + File.separator + "submissions"
+            + File.separator;
 
     public Submission submitAssignment(Long assignmentId, Long studentId, MultipartFile file) {
+        log.info("Starting submission upload for assignment {} student {}", assignmentId, studentId);
         Assignment assignment = assignmentService.getAssignmentById(assignmentId);
         User student = userService.getUserById(studentId);
 
         // Delete existing submission if any
-        submissionRepository.findByAssignmentAndStudent(assignment, student).ifPresent(submissionRepository::delete);
+        log.info("Checking for existing submission");
+        submissionRepository.findByAssignmentAndStudent(assignment, student).ifPresent(s -> {
+            log.info("Deleting existing submission {}", s.getId());
+            submissionRepository.delete(s);
+        });
 
         // Save file
+        log.info("Saving file: {}", file.getOriginalFilename());
         String filePath = saveFile(file);
+        log.info("File saved to: {}", filePath);
 
         // Extract text from file
+        log.info("Extracting text from file");
         String extractedText = fileTextExtractor.extractTextFromFile(filePath);
+        log.info("Text extracted length: {}", extractedText.length());
 
         Submission submission = Submission.builder()
                 .assignment(assignment)
@@ -57,6 +67,7 @@ public class SubmissionService {
                 .createdAt(LocalDateTime.now())
                 .build();
 
+        log.info("Saving submission to database");
         return submissionRepository.save(submission);
     }
 
